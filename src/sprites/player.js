@@ -1,6 +1,5 @@
-import Phaser from "phaser";
-
-const ACCELERATION = 150;
+import InputComponent from "@/components/input";
+import GraphicsComponent from "@/components/graphics";
 
 class Player {
   constructor(scene, x, y) {
@@ -18,34 +17,15 @@ class Player {
 
     this.sprite = scene.physics.add.sprite(x, y, "player", 0);
 
-    const { LEFT, RIGHT, UP, DOWN } = Phaser.Input.Keyboard.KeyCodes;
-    this.keys = scene.input.keyboard.addKeys({
-      left: LEFT,
-      right: RIGHT,
-      up: UP,
-      down: DOWN,
-    });
+    // Components
+    this.input = new InputComponent(this.sprite, scene);
+    this.graphics = new GraphicsComponent(this.sprite);
   }
 
   update() {
     this.sprite.anims.play("player-idle", true);
-
-    this.sprite.setVelocity(0);
-
-    // Apply horizontal acceleration when left/a or right/d are applied
-    if (this.keys.left.isDown) {
-      this.sprite.setVelocityX(-ACCELERATION);
-      this.sprite.setFlipX(true);
-    } else if (this.keys.right.isDown) {
-      this.sprite.setVelocityX(ACCELERATION);
-      this.sprite.setFlipX(false);
-    }
-
-    if (this.keys.up.isDown) {
-      this.sprite.setVelocityY(-ACCELERATION);
-    } else if (this.keys.down.isDown) {
-      this.sprite.setVelocityY(ACCELERATION);
-    }
+    this.input.update();
+    this.graphics.update();
   }
 }
 

@@ -9,7 +9,7 @@ const config = {
   pixelArt: false,
   backgroundColor: "#1d212d",
   scene: Game,
-  zoom: 2,
+  zoom: 3,
   pixelArt: true,
   physics: {
     default: "arcade",
