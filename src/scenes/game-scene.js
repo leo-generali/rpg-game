@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import Player from "@/objects/player";
 import NPC from "@/objects/npc";
 import spritesheet from "@/assets/images/dog/walk.png";
+import DialoguePlugin from "@/plugins/dialogue";
 
 class Game extends Phaser.Scene {
   constructor() {
@@ -9,6 +10,7 @@ class Game extends Phaser.Scene {
   }
 
   preload() {
+    this.load.scenePlugin("DialoguePlugin", DialoguePlugin, null, "dialogue");
     this.load.spritesheet("spritesheet", spritesheet, {
       frameWidth: 16,
       frameHeight: 16,
@@ -18,7 +20,6 @@ class Game extends Phaser.Scene {
   }
 
   create() {
-    this.scene.launch("hud");
     this.player = new Player(this, 184, 50);
     this.npc = new NPC(this, 200, 100);
   }

@@ -1,10 +1,11 @@
 import Phaser from "phaser";
 
-const { LEFT, RIGHT, UP, DOWN } = Phaser.Input.Keyboard.KeyCodes;
+const { LEFT, RIGHT, UP, DOWN, SPACE } = Phaser.Input.Keyboard.KeyCodes;
 
 class InputComponent {
   constructor(object, scene) {
     this.keys = scene.input.keyboard.addKeys({
+      space: SPACE,
       left: LEFT,
       right: RIGHT,
       up: UP,

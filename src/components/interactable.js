@@ -8,8 +8,6 @@ class InteractableComponent {
     this.graphics = this.scene.add.graphics();
     this.graphics.visible = false;
 
-    // console.log(this.object.sprite);
-
     const talkableIndicator = Phaser.Geom.Triangle.BuildEquilateral(
       this.object.sprite.body.x + this.object.sprite.body.width,
       this.object.sprite.body.y - 5,
@@ -23,10 +21,19 @@ class InteractableComponent {
   }
 
   update() {
-    if (this._checkWithinRange()) {
+    const isPlayerInRange = this._checkWithinRange();
+
+    if (isPlayerInRange) {
       this.graphics.visible = true;
     } else {
       this.graphics.visible = false;
+    }
+
+    // TODO: This has too much information about the player...
+    if (isPlayerInRange && this.player.input.keys.space.isDown) {
+      this.scene.dialogue.speak("Hello World! 1, 2, 3 :)", {
+        isAnimated: true,
+      });
     }
   }
 

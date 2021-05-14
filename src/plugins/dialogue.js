@@ -12,6 +12,11 @@ class DialoguePlugin extends Phaser.Plugins.ScenePlugin {
     this.windowColor = 0x303030;
   }
 
+  speak(text, params) {
+    this.drawWindow();
+    this.drawText(text, params);
+  }
+
   drawWindow() {
     this.graphics = this.scene.add.graphics();
     this._drawWindowToScreen();
@@ -52,17 +57,7 @@ class DialoguePlugin extends Phaser.Plugins.ScenePlugin {
     this.systems = null;
   }
 
-  displayTalkable(x, y) {
-    this.graphics.fillStyle(this.borderColor, this.windowAlpha);
-    this.graphics.fillRect(x - 2, y - 8, 4, 4);
-  }
-
-  hideTalkable() {
-    console.log(this.graphics);
-  }
-
   // Private
-
   _drawWindowToScreen() {
     const { x, y, width, height } = this._getWindowDimensions();
     this.graphics.fillStyle(this.windowColor, this.windowAlpha);

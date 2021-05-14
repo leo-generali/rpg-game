@@ -11,19 +11,10 @@ class HUD extends Phaser.Scene {
   }
 
   create() {
-    this.dialogue.drawWindow();
-    this.dialogue.drawText("Hello world! :) 1, 2, 3", {
-      isAnimated: true,
-    });
-  }
-
-  displayTalkable(x, y, width, height) {
-    // const { x, y, width, height } = npc.body;
-    this.dialogue.displayTalkable(x, y);
-  }
-
-  hideTalkable() {
-    this.dialogue.hideTalkable();
+    // this.dialogue.drawWindow();
+    // this.dialogue.drawText("Hello world! :) 1, 2, 3", {
+    //   isAnimated: true,
+    // });
   }
 }
 
