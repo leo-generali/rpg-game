@@ -1,7 +1,7 @@
 class GraphicsComponent {
-  constructor(gameObject) {
-    this.ANIM_KEYS = gameObject.ANIM_KEYS;
-    this.sprite = gameObject.sprite;
+  constructor(object) {
+    this.ANIM_KEYS = object.ANIM_KEYS;
+    this.sprite = object.sprite;
   }
 
   update() {

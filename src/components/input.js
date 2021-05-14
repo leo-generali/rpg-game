@@ -3,15 +3,15 @@ import Phaser from "phaser";
 const { LEFT, RIGHT, UP, DOWN } = Phaser.Input.Keyboard.KeyCodes;
 
 class InputComponent {
-  constructor(gameObject, scene) {
+  constructor(object, scene) {
     this.keys = scene.input.keyboard.addKeys({
       left: LEFT,
       right: RIGHT,
       up: UP,
       down: DOWN,
     });
-    this.sprite = gameObject.sprite;
-    this.VELOCITY = gameObject.VELOCITY;
+    this.sprite = object.sprite;
+    this.VELOCITY = object.VELOCITY;
   }
 
   update() {

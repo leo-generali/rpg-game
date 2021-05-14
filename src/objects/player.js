@@ -10,28 +10,25 @@ class Player {
       WALKING: "player/walking",
     };
 
-    this.scene = scene;
-
     scene.anims.create({
       key: this.ANIM_KEYS.IDLE,
       frames: scene.anims.generateFrameNumbers("spritesheet", {
-        frames: [8, 8, 8, 8, 8, 8, 8, 9],
+        frames: [0],
       }),
-      frameRate: 4,
-      repeat: -1,
     });
 
     scene.anims.create({
       key: this.ANIM_KEYS.WALKING,
       frames: scene.anims.generateFrameNumbers("spritesheet", {
-        start: 8,
-        end: 9,
+        frames: [1, 2, 3, 0],
       }),
       frameRate: 4,
       repeat: -1,
     });
 
     this.sprite = scene.physics.add.sprite(x, y, "player", 0);
+    this.sprite.setSize(16, 16);
+    this.sprite.setOffset(0, 0);
 
     // Components
     this.input = new InputComponent(this, scene);

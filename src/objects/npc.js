@@ -1,4 +1,5 @@
 import GraphicsComponent from "@/components/graphics";
+import InteractableComponent from "@/components/interactable";
 
 class NPC {
   constructor(scene, x, y) {
@@ -14,20 +15,23 @@ class NPC {
     scene.anims.create({
       key: this.ANIM_KEYS.IDLE,
       frames: scene.anims.generateFrameNumbers("spritesheet", {
-        frames: [8, 9],
+        frames: [0],
       }),
-      frameRate: 3,
-      repeat: -1,
     });
 
     this.sprite = scene.physics.add.sprite(x, y, "npc", 0);
+    this.sprite.body.immovable = true;
+    this.sprite.setSize(16, 16);
+    this.sprite.setOffset(0, 0);
 
     // Components
     this.graphics = new GraphicsComponent(this);
+    this.interactable = new InteractableComponent(this);
   }
 
   update() {
     this.graphics.update();
+    this.interactable.update();
   }
 }
 
