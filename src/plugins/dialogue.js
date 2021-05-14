@@ -6,36 +6,49 @@ class DialoguePlugin extends Phaser.Plugins.ScenePlugin {
 
     this.graphics = null;
     this.text = null;
+
+    // Colors
     this.borderColor = 0x907748;
     this.borderAlpha = 1;
     this.windowAlpha = 0.8;
     this.windowColor = 0x303030;
+
+    //
+    this.letterCount = 0;
   }
 
-  speak(text, params) {
+  speak(text, params, callback) {
+    this.graphics = this.scene.add.graphics();
     this.drawWindow();
-    this.drawText(text, params);
+    this.drawText(text, params, callback);
   }
 
   drawWindow() {
-    this.graphics = this.scene.add.graphics();
     this._drawWindowToScreen();
     this._drawWindowWrapperToScreen();
   }
 
-  drawText(text, { isAnimated }) {
-    this.eventCounter = 0;
-    this.dialog = text.split("");
+  drawText(text, { isAnimated }, callback) {
+    this.letterCount = 0;
     if (this.timedEvent) this.timedEvent.remove();
 
-    var tempText = isAnimated ? "" : text;
-    this._drawText(tempText);
+    this._drawText("");
 
     if (isAnimated) {
       this.timedEvent = this.scene.time.addEvent({
-        delay: 30,
-        callback: this._animateText,
-        callbackScope: this,
+        delay: 25,
+        callback: () => {
+          this.letterCount++;
+          const textToAdd = text.substring(0, this.letterCount);
+          this.text.setText(textToAdd);
+          if (this.letterCount === text.length + 1) {
+            this.timedEvent.remove();
+            this.graphics.destroy();
+            this.text.destroy();
+            // this.destroy();
+            callback();
+          }
+        },
         loop: true,
       });
     }
@@ -100,14 +113,6 @@ class DialoguePlugin extends Phaser.Plugins.ScenePlugin {
         },
       },
     });
-  }
-
-  _animateText() {
-    this.eventCounter++;
-    this.text.setText(this.text.text + this.dialog[this.eventCounter - 1]);
-    if (this.eventCounter === this.dialog.length) {
-      this.timedEvent.remove();
-    }
   }
 }
 

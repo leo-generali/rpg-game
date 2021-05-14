@@ -31,7 +31,7 @@ class InteractableComponent {
 
     // TODO: This has too much information about the player...
     if (isPlayerInRange && this.player.input.keys.space.isDown) {
-      this.scene.dialogue.speak("Hello World! 1, 2, 3 :)", {
+      this._speak("Hello World! 1, 2, 3 :)", {
         isAnimated: true,
       });
     }
@@ -48,17 +48,19 @@ class InteractableComponent {
     );
   }
 
-  _calculateTrianglePoints() {
-    const { x, y, width } = this.object.sprite.body;
+  _pauseGame() {
+    this.scene.pause();
+  }
 
-    console.log(x + width / 2);
+  _resumeGame() {
+    this.scene.resume();
+  }
 
-    return {
-      x1: x + width / 2,
-      y1: x + width / 2,
-    };
-
-    100, 100, 95, 105, 105, 105;
+  _speak(text, params) {
+    this._pauseGame();
+    this.scene.game.scene.getScene("hud").dialogue.speak(text, params, () => {
+      this._resumeGame();
+    });
   }
 }
 
