@@ -2,7 +2,7 @@ import GraphicsComponent from "@/components/graphics";
 import InteractableComponent from "@/components/interactable";
 
 class NPC {
-  constructor(scene, x, y) {
+  constructor(scene, x, y, params) {
     // Constants
     this.VELOCITY = 100;
     this.ANIM_KEYS = {
@@ -26,7 +26,7 @@ class NPC {
 
     // Components
     this.graphics = new GraphicsComponent(this);
-    this.interactable = new InteractableComponent(this);
+    this.interactable = new InteractableComponent(this, params.dialogue);
   }
 
   update() {

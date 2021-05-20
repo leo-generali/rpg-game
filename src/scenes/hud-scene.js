@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import DialoguePlugin from "@/plugins/dialogue";
+import DialogueManagerPlugin from "@/plugins/dialogue-manager";
 
 class HUD extends Phaser.Scene {
   constructor() {
@@ -7,7 +7,12 @@ class HUD extends Phaser.Scene {
   }
 
   preload() {
-    this.load.scenePlugin("DialoguePlugin", DialoguePlugin, null, "dialogue");
+    this.load.scenePlugin(
+      "DialogueManagerPlugin",
+      DialogueManagerPlugin,
+      null,
+      "dialogueManager"
+    );
   }
 }
 

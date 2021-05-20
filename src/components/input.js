@@ -5,7 +5,7 @@ const { LEFT, RIGHT, UP, DOWN, SPACE } = Phaser.Input.Keyboard.KeyCodes;
 class InputComponent {
   constructor(object, scene) {
     this.keys = scene.input.keyboard.addKeys({
-      space: SPACE,
+      interact: SPACE,
       left: LEFT,
       right: RIGHT,
       up: UP,
@@ -16,17 +16,18 @@ class InputComponent {
   }
 
   update() {
+    const { left, right, up, down } = this.keys;
     this.sprite.setVelocity(0);
 
-    if (this.keys.left.isDown) {
+    if (left.isDown) {
       this.sprite.setVelocityX(-this.VELOCITY);
-    } else if (this.keys.right.isDown) {
+    } else if (right.isDown) {
       this.sprite.setVelocityX(this.VELOCITY);
     }
 
-    if (this.keys.up.isDown) {
+    if (up.isDown) {
       this.sprite.setVelocityY(-this.VELOCITY);
-    } else if (this.keys.down.isDown) {
+    } else if (down.isDown) {
       this.sprite.setVelocityY(this.VELOCITY);
     }
   }

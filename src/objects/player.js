@@ -1,6 +1,5 @@
 import InputComponent from "@/components/input";
 import GraphicsComponent from "@/components/graphics";
-
 class Player {
   constructor(scene, x, y) {
     // Constants

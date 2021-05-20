@@ -1,12 +1,13 @@
 import Phaser from "phaser";
 
 class InteractableComponent {
-  constructor(object) {
+  constructor(object, dialogue) {
     this.object = object;
     this.scene = this.object.scene;
     this.player = this.scene.player;
     this.graphics = this.scene.add.graphics();
     this.graphics.visible = false;
+    this.dialogue = dialogue;
 
     const talkableIndicator = Phaser.Geom.Triangle.BuildEquilateral(
       this.object.sprite.body.x + this.object.sprite.body.width,
@@ -22,6 +23,8 @@ class InteractableComponent {
 
   update() {
     const isPlayerInRange = this._checkWithinRange();
+    const dialogueManager =
+      this.scene.game.scene.getScene("hud").dialogueManager;
 
     if (isPlayerInRange) {
       this.graphics.visible = true;
@@ -30,10 +33,11 @@ class InteractableComponent {
     }
 
     // TODO: This has too much information about the player...
-    if (isPlayerInRange && this.player.input.keys.space.isDown) {
-      this._speak("Hello World! 1, 2, 3 :)", {
-        isAnimated: true,
-      });
+    if (
+      isPlayerInRange &&
+      Phaser.Input.Keyboard.JustDown(this.player.input.keys.interact)
+    ) {
+      dialogueManager.startDialogue(this.dialogue);
     }
   }
 
@@ -56,11 +60,8 @@ class InteractableComponent {
     this.scene.resume();
   }
 
-  _speak(text, params) {
-    this._pauseGame();
-    this.scene.game.scene.getScene("hud").dialogue.speak(text, params, () => {
-      this._resumeGame();
-    });
+  _dialogueManager() {
+    return;
   }
 }
 
